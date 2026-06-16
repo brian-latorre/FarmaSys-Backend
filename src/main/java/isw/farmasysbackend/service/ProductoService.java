@@ -1,12 +1,13 @@
 package isw.farmasysbackend.service;
 
+import isw.farmasysbackend.dto.ProductoRequest;
+import isw.farmasysbackend.dto.ProductoResponse;
 import isw.farmasysbackend.model.Producto;
 import isw.farmasysbackend.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductoService {
@@ -14,20 +15,20 @@ public class ProductoService {
     @Autowired
     private ProductoRepository productoRepository;
 
-    public List<Producto> listarTodos() {
-        return productoRepository.findAll();
+    public List<ProductoResponse> listarTodos() {
+        List<Producto> productos = productoRepository.findAll();
+        return ProductoResponse.fromEntities(productos);
     }
 
-    public Optional<Producto> buscarPorId(Long id) {
-        return productoRepository.findById(id);
-    }
+    public ProductoResponse guardar(ProductoRequest productoRequest) {
+        Producto producto = ProductoRequest.toEntity(productoRequest);
 
-    public Producto guardar(Producto producto) {
         if (producto.getPrecioVenta().compareTo(producto.getPrecioCosto()) < 0) {
             throw new IllegalArgumentException("Error: El precio de venta es menor al precio de costo");
         }
 
-        return productoRepository.save(producto);
+        Producto productoGuardado = productoRepository.save(producto);
+        return ProductoResponse.fromEntity(productoGuardado);
     }
 
     public void eliminar(Long id) {

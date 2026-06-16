@@ -1,6 +1,7 @@
 package isw.farmasysbackend.controller;
 
-import isw.farmasysbackend.model.Producto;
+import isw.farmasysbackend.dto.ProductoRequest;
+import isw.farmasysbackend.dto.ProductoResponse;
 import isw.farmasysbackend.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +17,13 @@ public class ProductoController {
     private ProductoService productoService;
 
     @GetMapping
-    public List<Producto> obtenerProductos() {
-        return productoService.listarTodos();
+    public ResponseEntity<List<ProductoResponse>> obtenerProductos() {
+        return ResponseEntity.ok(productoService.listarTodos());
     }
 
     @PostMapping
-    public ResponseEntity<Producto> registrarProducto(@RequestBody Producto producto) {
-        Producto nuevoProducto = productoService.guardar(producto);
+    public ResponseEntity<ProductoResponse> registrarProducto(@RequestBody ProductoRequest productoRequest) {
+        ProductoResponse nuevoProducto = productoService.guardar(productoRequest);
         return ResponseEntity.ok(nuevoProducto);
     }
 }
