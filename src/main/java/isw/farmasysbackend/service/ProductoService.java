@@ -21,6 +21,16 @@ public class ProductoService {
     }
 
     public ProductoResponse guardar(ProductoRequest productoRequest) {
+        if (productoRequest == null) {
+            throw new IllegalArgumentException("El producto es obligatorio");
+        }
+        if (productoRequest.getId() != null) {
+            throw new IllegalArgumentException("No se debe enviar id al registrar un producto");
+        }
+        if (productoRequest.getPrecioVenta() == null || productoRequest.getPrecioCosto() == null) {
+            throw new IllegalArgumentException("Los precios de venta y costo son obligatorios");
+        }
+
         Producto producto = ProductoRequest.toEntity(productoRequest);
 
         if (producto.getPrecioVenta().compareTo(producto.getPrecioCosto()) < 0) {

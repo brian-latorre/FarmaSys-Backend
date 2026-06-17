@@ -1,5 +1,6 @@
 package isw.farmasysbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +23,7 @@ public class Usuario {
     private String username;
 
     @Column(name = "password", nullable = false, length = 255)
+    @JsonIgnore
     private String password;
 
     @Column(name = "estado", nullable = false, length = 20)
