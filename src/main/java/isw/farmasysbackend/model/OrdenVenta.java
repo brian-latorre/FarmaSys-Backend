@@ -23,12 +23,12 @@ public class OrdenVenta {
     @Column(name = "nro_orden", nullable = false, unique = true, length = 20)
     private String nroOrden;
 
-    // Se usa LocalDateTime para manejar TIMESTAMP (fecha y hora)
+
     @Column(name = "fecha_hora", nullable = false)
     private LocalDateTime fechaHora;
 
     @Column(name = "canal_origen", nullable = false, length = 30)
-    private String canalOrigen; // 'PRESENCIAL','WEB','APP','TELEFONO'
+    private String canalOrigen;
 
     @Column(name = "estado", nullable = false, length = 20)
     private String estado;
@@ -36,7 +36,7 @@ public class OrdenVenta {
     @Column(name = "monto_total", nullable = false, precision = 10, scale = 2)
     private BigDecimal montoTotal;
 
-    // Relación: Muchas órdenes de venta pertenecen a un Cliente
+
     @ManyToOne
     @JoinColumn(name = "id_cliente", nullable = false)
     private Cliente cliente;

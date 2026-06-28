@@ -29,12 +29,12 @@ public class Usuario {
     @Column(name = "estado", nullable = false, length = 20)
     private String estado;
 
-    // Relación: Muchos usuarios pueden tener un mismo Rol
+
     @ManyToOne
     @JoinColumn(name = "id_rol", nullable = false)
     private Rol rol;
 
-    // Relación: Muchos usuarios pueden trabajar en una misma Sede
+
     @ManyToOne
     @JoinColumn(name = "id_sede", nullable = false)
     private Sede sede;
